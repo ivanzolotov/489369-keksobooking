@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Ivan Zolotov](https://up.htmlacademy.ru/javascript/10/user/489369).
-* Наставник: `Неизвестно`.
+* Наставник: [Dmitry Ermakov](https://htmlacademy.ru/profile/id195904).
 
 ---
 

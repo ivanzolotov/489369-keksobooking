@@ -18,20 +18,21 @@ var DICTIONARY = {
 var offersQuantity = 8;
 var fakeTitles = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
 
-var offers = [];
-var pinElements = [];
-for (var i = 0; i < offersQuantity; i++) {
-  offers.push(makeFakeOffer(i));
-  pinElements.push(makePinElement(offers[i]));
-}
-insertElementsToDom(pinElements, document.querySelector('.tokyo__pin-map'));
-redrawLodgeTemplate(offers[0]);
-
+(function () {
+  var offers = [];
+  var pinElements = [];
+  for (var i = 0; i < offersQuantity; i++) {
+    offers.push(makeFakeOffer(i));
+    pinElements.push(makePinElement(offers[i]));
+  }
+  insertElementsToDom(pinElements, document.querySelector('.tokyo__pin-map'));
+  redrawLodgeTemplate(offers[0]);
+})();
 
 function insertElementsToDom(elements, destination) {
   var fragment = document.createDocumentFragment();
-  for (var index = 0; index < elements.length; index++) {
-    fragment.appendChild(elements[index]);
+  for (var i = 0; i < elements.length; i++) {
+    fragment.appendChild(elements[i]);
   }
   destination.appendChild(fragment);
 }
@@ -84,8 +85,8 @@ function makeFakeOffer(index) {
 function redrawLodgeTemplate(data) {
   var makeLodgeFeaturesSpans = function (features) {
     var result = '';
-    for (var index = 0; index < features.length; index++) {
-      result += '<span class="feature__image feature__image--' + features[index] + '"></span>';
+    for (var i = 0; i < features.length; i++) {
+      result += '<span class="feature__image feature__image--' + features[i] + '"></span>';
     }
     return result;
   };
@@ -114,7 +115,7 @@ function getRandomElement(array) {
 function getRandomElements(array) {
   var result = [];
   var quantity = getRandomInteger(1, array.length);
-  for (var index = 0; index < quantity; index++) {
+  for (var i = 0; i < quantity; i++) {
     result.push(extractRandomElement(array));
   }
   return result;

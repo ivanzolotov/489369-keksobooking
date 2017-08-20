@@ -33,7 +33,7 @@ function insertElementsToDom(elements, destination) {
   for (var index = 0; index < elements.length; index++) {
     fragment.appendChild(elements[index]);
   }
-  destination.appendChild(fragment);  
+  destination.appendChild(fragment);
 }
 
 function makePinElement(data) {

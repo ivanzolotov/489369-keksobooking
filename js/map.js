@@ -52,9 +52,12 @@ function makePinElement(data) {
 }
 
 function makeFakeOffer(index) {
+  var getImageIndex = function (imageIndex) {
+    return imageIndex < 9 ? '0' + (imageIndex + 1) : (imageIndex + 1);
+  }
   var result = {
     author: {
-      avatar: 'img/avatars/user' + (index < 9 ? '0' + (index + 1) : (index + 1)) + '.png',
+      avatar: 'img/avatars/user' + getImageIndex(index) + '.png',
     },
     offer: {
       title: extractRandomElement(fakeTitles),

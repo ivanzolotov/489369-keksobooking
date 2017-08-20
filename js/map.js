@@ -126,8 +126,9 @@ function getRandomElement(array) {
 function getRandomElements(array, quantity) {
   quantity = quantity || getRandomInteger(1, array.length);
   var result = [];
+  var arrayCopy = array.slice();
   for (var i = 0; i < quantity; i++) {
-    result.push(extractRandomElement(array));
+    result.push(extractRandomElement(arrayCopy));
   }
   return result;
 }

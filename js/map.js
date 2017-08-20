@@ -54,7 +54,7 @@ function makePinElement(data) {
 function makeFakeOffer(index) {
   var getImageIndex = function (imageIndex) {
     return imageIndex < 9 ? '0' + (imageIndex + 1) : (imageIndex + 1);
-  }
+  };
   var result = {
     author: {
       avatar: 'img/avatars/user' + getImageIndex(index) + '.png',
@@ -115,9 +115,17 @@ function getRandomElement(array) {
   return array[getRandomInteger(0, array.length - 1)];
 }
 
-function getRandomElements(array) {
+/** 
+ * Возвращает quantity случайных элементов из массива array.
+ * Если не передано количество quantity, будет возвращено случайное
+ * количество элементов.
+ * @param {Array} array
+ * @param {number} quantity
+ * @return {Array}
+ */
+function getRandomElements(array, quantity) {
+  quantity = quantity || getRandomInteger(1, array.length);
   var result = [];
-  var quantity = getRandomInteger(1, array.length);
   for (var i = 0; i < quantity; i++) {
     result.push(extractRandomElement(array));
   }

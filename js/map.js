@@ -15,12 +15,13 @@ var DICTIONARY = {
   house: 'дом',
 };
 
-var offersQuantity = 8;
+var newOffersQuantity = 8;
 var fakeTitles = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
 
 (function () {
   var offers = [];
   var pinElements = [];
+  var offersQuantity = newOffersQuantity + offers.length;
   for (var i = 0; i < offersQuantity; i++) {
     offers.push(makeFakeOffer(i));
     pinElements.push(makePinElement(offers[i]));

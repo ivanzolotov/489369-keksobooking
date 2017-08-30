@@ -161,6 +161,7 @@
     div.classList.add('pin');
     div.style.left = (offers[index].location.x - PIN_HALF_WIDTH) + 'px';
     div.style.top = (offers[index].location.y - PIN_HEIGHT) + 'px';
+    div.tabIndex = 0;
     div.appendChild(image);
     return div;
   }
@@ -247,4 +248,115 @@
   window.offers.generateInitialOffers(INITIAL_OFFERS_QUANTITY);
   window.offers.drawAllPinElements();
   window.offers.drawDialogPanelElement();
+})();
+
+
+// [!] Модуль про показ/скрытие карточки объявления
+
+(function () {
+
+  var ESC_KEYCODE = 27;
+  var ENTER_KEYCODE = 13;
+
+  var activePin;
+
+  var offerDialogDomElement = document.getElementById('offer-dialog');
+  var dialogCloseDomElement = offerDialogDomElement.querySelector('.dialog__close');
+  var tokyoPinMapDomElement = document.querySelector('.tokyo__pin-map');
+
+  tokyoPinMapDomElement.addEventListener('click', tokyoPinMapDomElementClickHandler);
+  tokyoPinMapDomElement.addEventListener('keydown', tokyoPinMapDomElementKeydownHandler);
+
+  function tokyoPinMapDomElementClickHandler(evt) {
+    var target = evt.target;
+    while (target !== tokyoPinMapDomElement) {
+      if (target.tagName === 'DIV' && !target.classList.contains('pin__main')) {
+        activatePin(target);
+        window.offers.drawDialogPanelElement(getPinIndex(activePin));
+        openDialog();
+        return;
+      }
+      target = target.parentNode;
+    }
+  }
+
+  function tokyoPinMapDomElementKeydownHandler(evt) {
+    if (isEnterPressed(evt)) {
+      activatePin(evt.target);
+      window.offers.drawDialogPanelElement(getPinIndex(activePin));
+      openDialog();
+    }
+  }
+
+  function dialogCloseDomElementKeydownHandler(evt) {
+    if (isEnterPressed(evt)) {
+      closeDialog();
+    }
+  }
+
+  function bodyKeydownHandler(evt) {
+    if (isEscPressed(evt)) {
+      evt.preventDefault();
+      closeDialog();
+    }
+  }
+
+  function isEnterPressed(evt) {
+    return evt.keyCode === ENTER_KEYCODE;
+  }
+
+  function isEscPressed(evt) {
+    return evt.keyCode === ESC_KEYCODE;
+  }
+
+  function getPinIndex(pin) {
+    var pins = document.querySelectorAll('.pin:not(.pin__main)');
+    return Array.prototype.indexOf.call(pins, pin);
+  }
+
+  function isDialogOpened() {
+    return !offerDialogDomElement.classList.contains('hidden');
+  }
+
+  function openDialog() {
+    if (!isDialogOpened()) {
+      offerDialogDomElement.classList.remove('hidden');
+      dialogCloseDomElement.addEventListener('click', closeDialog);
+      dialogCloseDomElement.addEventListener('keydown', dialogCloseDomElementKeydownHandler);
+      document.body.addEventListener('keydown', bodyKeydownHandler);
+    }
+  }
+
+  function closeDialog() {
+    offerDialogDomElement.classList.add('hidden');
+    dialogCloseDomElement.removeEventListener('click', closeDialog);
+    dialogCloseDomElement.removeEventListener('keydown', dialogCloseDomElementKeydownHandler);
+    document.body.removeEventListener('keydown', bodyKeydownHandler);
+    activatePin();
+  }
+
+  function activatePin(pin) {
+    if (activePin) {
+      activePin.classList.remove('pin--active');
+    }
+    activePin = pin;
+    if (pin) {
+      pin.classList.add('pin--active');
+    }
+  }
+
+  window.dialog = {
+    tokyoPinMapDomElementClickHandler: tokyoPinMapDomElementClickHandler,
+    tokyoPinMapDomElementKeydownHandler: tokyoPinMapDomElementKeydownHandler,
+    dialogCloseDomElementKeydownHandler: dialogCloseDomElementKeydownHandler,
+    bodyKeydownHandler: bodyKeydownHandler,
+    isEnterPressed: isEnterPressed,
+    isEscPressed: isEscPressed,
+    getPinIndex: getPinIndex,
+    isDialogOpened: isDialogOpened,
+    openDialog: openDialog,
+    closeDialog: closeDialog,
+    activatePin: activatePin,
+  };
+
 })();

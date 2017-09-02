@@ -360,3 +360,62 @@
   };
 
 })();
+
+
+// [!] Модуль noticeForm переложить в notice-form.js
+
+(function () {
+
+  // Синхронизируем время выезда при изменении времени заезда
+  var noticeFormDomElement = document.querySelector('.notice__form');
+  var timeinSelectDomElement = noticeFormDomElement.querySelector('select[name=timein]');
+  timeinSelectDomElement.addEventListener('change', timeinSelectDomElementChangeHandler);
+
+  // Устанавливаем минимальную цену за ночь в соответствии с типом жилья
+  var typeSelectDomElement = noticeFormDomElement.querySelector('select[name=type]');
+  typeSelectDomElement.addEventListener('change', setMinimumPrice);
+  setMinimumPrice();
+
+  // Устанавливаем количество мест в соответствии с количеством комнат
+  var roomsSelectDomElement = noticeFormDomElement.querySelector('select[name=rooms]');
+  roomsSelectDomElement.addEventListener('change', setCapacity);
+  setCapacity();
+
+  function timeinSelectDomElementChangeHandler(evt) {
+    var timeoutSelectDomElement = noticeFormDomElement.querySelector('select[name=timeout]');
+    timeoutSelectDomElement.value = evt.target.value;
+  }
+
+  function setMinimumPrice() {
+    var priceInputDomElement = noticeFormDomElement.querySelector('input[name=price]');
+    var price = {
+      bungalo: 0,
+      flat: 1000,
+      house: 5000,
+      palace: 10000,
+    };
+    priceInputDomElement.setAttribute('min', price[typeSelectDomElement.value]);
+  }
+
+  function setCapacity() {
+    var capacityText = ['не для гостей', 'для 1 гостя', 'для 2 гостей', 'для 3 гостей'];
+    var capacitySelectDomElement = noticeFormDomElement.querySelector('select[name=capacity]');
+    capacitySelectDomElement.innerHTML = '';
+    if (roomsSelectDomElement.value === '100') {
+      capacitySelectDomElement.appendChild(new Option(capacityText[0], 0));
+    } else {
+      for (var i = roomsSelectDomElement.value; i > 0; i--) {
+        var option = new Option(capacityText[i], i);
+        capacitySelectDomElement.appendChild(option);
+      }
+    }
+  }
+
+  window.noticeForm = {
+    timeinSelectDomElementChangeHandler: timeinSelectDomElementChangeHandler,
+    setMinimumPrice: setMinimumPrice,
+    setCapacity: setCapacity,
+    appendUniversalValidator: appendUniversalValidator,
+  };
+
+})();

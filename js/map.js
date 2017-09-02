@@ -381,6 +381,9 @@
   roomsSelectDomElement.addEventListener('change', setCapacity);
   setCapacity();
 
+  // Навешиваем на все элементы формы обработчик-валидатор
+  appendUniversalValidator();
+
   function timeinSelectDomElementChangeHandler(evt) {
     var timeoutSelectDomElement = noticeFormDomElement.querySelector('select[name=timeout]');
     timeoutSelectDomElement.value = evt.target.value;
@@ -408,6 +411,14 @@
         var option = new Option(capacityText[i], i);
         capacitySelectDomElement.appendChild(option);
       }
+    }
+  }
+
+  function appendUniversalValidator() {
+    for (var i = 0; i < noticeFormDomElement.elements.length; i++) {
+      noticeFormDomElement.elements[i].addEventListener('invalid', function (evt) {
+        evt.target.style.outline = '2px solid red';
+      });
     }
   }
 

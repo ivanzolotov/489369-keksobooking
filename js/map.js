@@ -347,10 +347,12 @@
 
 (function () {
 
-  // Синхронизируем время выезда при изменении времени заезда
+  // Синхронизируем время выезда и времени заезда
   var noticeFormDomElement = document.querySelector('.notice__form');
   var timeinSelectDomElement = noticeFormDomElement.querySelector('select[name=timein]');
-  timeinSelectDomElement.addEventListener('change', timeinSelectDomElementChangeHandler);
+  var timeoutSelectDomElement = noticeFormDomElement.querySelector('select[name=timeout]');
+  timeinSelectDomElement.addEventListener('change', syncTimeInAndTimeOut);
+  timeoutSelectDomElement.addEventListener('change', syncTimeInAndTimeOut);
 
   // Устанавливаем минимальную цену за ночь в соответствии с типом жилья
   var typeSelectDomElement = noticeFormDomElement.querySelector('select[name=type]');
@@ -365,8 +367,8 @@
   // Навешиваем на все элементы формы обработчик-валидатор
   appendUniversalValidator();
 
-  function timeinSelectDomElementChangeHandler(evt) {
-    var timeoutSelectDomElement = noticeFormDomElement.querySelector('select[name=timeout]');
+  function syncTimeInAndTimeOut(evt) {
+    timeinSelectDomElement.value = evt.target.value;
     timeoutSelectDomElement.value = evt.target.value;
   }
 
@@ -404,7 +406,7 @@
   }
 
   window.noticeForm = {
-    timeinSelectDomElementChangeHandler: timeinSelectDomElementChangeHandler,
+    syncTimeInAndTimeOut: syncTimeInAndTimeOut,
     setMinimumPrice: setMinimumPrice,
     setCapacity: setCapacity,
     appendUniversalValidator: appendUniversalValidator,

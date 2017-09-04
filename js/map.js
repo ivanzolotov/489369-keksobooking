@@ -5,14 +5,7 @@
 
 (function () {
 
-  // [?] Здесь я пытаюсь частично применить модульный подход,
-  //     описанный во время последнего вебинара.
-  //     Хотя формально это снова вложенные функции, в конце
-  //     модуля я экспортирую их все в глобальный скоуп,
-  //     поэтому проблем с тестированием быть не должно.
-  //     Годится?
-
-  function capitalizeFirstLetter(string) {
+  function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
@@ -58,7 +51,7 @@
   }
 
   window.utilites = {
-    capitalizeFirstLetter: capitalizeFirstLetter,
+    capitalize: capitalize,
     addLeadingZero: addLeadingZero,
     getRandomInteger: getRandomInteger,
     extractRandomElement: extractRandomElement,
@@ -74,9 +67,6 @@
 
 (function () {
 
-  var NEW_OFFERS_INITIAL_INDEX = 1;
-
-  // [?] Может быть названия параметров объекта OFFER правильнее указывать строчными буквами?
   var OFFER = {
     TITLES: ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'],
     PRICE_MIN: 1000,
@@ -102,17 +92,17 @@
   // States
   // Если данные о предложениях откуда-то будут подтягиваться, это можно будет сделать здесь
   var offers = [];
-  var nextOfferIndex = NEW_OFFERS_INITIAL_INDEX;
+  var nextOfferIndex = 1;
 
-  function listOffers() {
+  function getOffers() {
     return offers;
   }
 
-  function addOffer() {
-    offers.push(generateOffer());
+  function addOffer(offer) {
+    offers.push(offer);
   }
 
-  function generateOffer() {
+  function createOffer() {
     var offerIndex = nextOfferIndex++;
     var result = {
       author: {
@@ -120,11 +110,6 @@
       },
       offer: {
         title: window.utilites.extractRandomElement(OFFER.TITLES),
-        // [?] Как в этой точке сослаться на location.x и location.y?
-        //     this ведь всегда будет ссылаться на объект offer?
-        // get address() {
-        //   return '000, 000';
-        // },
         price: window.utilites.getRandomInteger(OFFER.PRICE_MIN, OFFER.PRICE_MAX),
         type: window.utilites.getRandomElement(OFFER.TYPES),
         rooms: window.utilites.getRandomInteger(OFFER.ROOMS_MIN, OFFER.ROOMS_MAX),
@@ -140,14 +125,13 @@
         y: window.utilites.getRandomInteger(100, 500),
       },
     };
-    // [!] Костыль на время, пока не найдено изящное решение с геттером при объявлении переменной result выше
     result.offer.address = result.location.x + ', ' + result.location.y;
     return result;
   }
 
   function generateInitialOffers(quantity) {
     for (var i = 0; i < quantity; i++) {
-      window.offers.addOffer();
+      window.offers.addOffer(createOffer());
     }
   }
 
@@ -185,14 +169,11 @@
     return newDialogPanelElement;
   }
 
-  // [?] Имеет ли смысл в этой функции использовать что-нибудь вместо
-  //     .textContent и .innerHTML? Ведь мы манипулируем элементами до их вставки
-  //     в DOM, есть ли в моём подходе вред для производительности?
   function fillDialogPanelElement(newDialogPanelElement, index) {
     newDialogPanelElement.querySelector('.lodge__title').textContent = offers[index].offer.title;
     newDialogPanelElement.querySelector('.lodge__address').textContent = offers[index].offer.address;
     newDialogPanelElement.querySelector('.lodge__price').innerHTML = offers[index].offer.price + '&#x20bd;/ночь';
-    newDialogPanelElement.querySelector('.lodge__type').textContent = window.utilites.capitalizeFirstLetter(DICTIONARY[offers[index].offer.type]);
+    newDialogPanelElement.querySelector('.lodge__type').textContent = window.utilites.capitalize(DICTIONARY[offers[index].offer.type]);
     newDialogPanelElement.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + offers[index].offer.guests + ' гостей в ' + offers[index].offer.rooms + ' комнатах';
     newDialogPanelElement.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + offers[index].offer.checkin + ', выезд до ' + offers[index].offer.checkout;
     newDialogPanelElement.querySelector('.lodge__features').innerHTML = makeLodgeFeaturesSpans(offers[index].offer.features);
@@ -223,9 +204,9 @@
   }
 
   window.offers = {
-    listOffers: listOffers,
+    getOffers: getOffers,
     addOffer: addOffer,
-    generateOffer: generateOffer,
+    createOffer: createOffer,
     generateInitialOffers: generateInitialOffers,
     makePinElement: makePinElement,
     makeAllPinElements: makeAllPinElements,

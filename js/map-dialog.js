@@ -23,7 +23,7 @@
   }
 
   function tokyoPinMapDomElementKeydownHandler(evt) {
-    if (window.utilites.isEnterPressed(evt)) {
+    if (window.utils.isEnterPressed(evt)) {
       window.mapPins.setActivePin(evt.target);
       drawDialogPanelElement(window.mapPins.getActivePinIndex());
       openDialog();
@@ -31,13 +31,13 @@
   }
 
   function dialogCloseDomElementKeydownHandler(evt) {
-    if (window.utilites.isEnterPressed(evt)) {
+    if (window.utils.isEnterPressed(evt)) {
       closeDialog();
     }
   }
 
   function bodyKeydownHandler(evt) {
-    if (window.utilites.isEscPressed(evt)) {
+    if (window.utils.isEscPressed(evt)) {
       evt.preventDefault();
       closeDialog();
     }
@@ -76,7 +76,7 @@
     newDialogPanelElement.querySelector('.lodge__title').textContent = window.data.getOffers()[index].offer.title;
     newDialogPanelElement.querySelector('.lodge__address').textContent = window.data.getOffers()[index].offer.address;
     newDialogPanelElement.querySelector('.lodge__price').innerHTML = window.data.getOffers()[index].offer.price + '&#x20bd;/ночь';
-    newDialogPanelElement.querySelector('.lodge__type').textContent = window.utilites.capitalize(window.utilites.translate(window.data.getOffers()[index].offer.type));
+    newDialogPanelElement.querySelector('.lodge__type').textContent = window.utils.capitalize(window.utils.translate(window.data.getOffers()[index].offer.type));
     newDialogPanelElement.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + window.data.getOffers()[index].offer.guests + ' гостей в ' + window.data.getOffers()[index].offer.rooms + ' комнатах';
     newDialogPanelElement.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + window.data.getOffers()[index].offer.checkin + ', выезд до ' + window.data.getOffers()[index].offer.checkout;
     newDialogPanelElement.querySelector('.lodge__features').innerHTML = makeLodgeFeaturesSpans(window.data.getOffers()[index].offer.features);

@@ -7,10 +7,10 @@
   var timeinSelectDomElement = noticeFormDomElement.querySelector('select[name=timein]');
   var timeoutSelectDomElement = noticeFormDomElement.querySelector('select[name=timeout]');
   timeinSelectDomElement.addEventListener('change', function (evt) {
-    window.utilites.cloneElementValue(evt.target, timeoutSelectDomElement);
+    window.utils.cloneElementValue(evt.target, timeoutSelectDomElement);
   });
   timeoutSelectDomElement.addEventListener('change', function (evt) {
-    window.utilites.cloneElementValue(evt.target, timeinSelectDomElement);
+    window.utils.cloneElementValue(evt.target, timeinSelectDomElement);
   });
 
   // Устанавливаем минимальную цену за ночь в соответствии с типом жилья

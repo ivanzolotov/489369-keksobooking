@@ -40,23 +40,23 @@
     var offerIndex = nextOfferIndex++;
     var result = {
       author: {
-        avatar: 'img/avatars/user' + window.utilites.addLeadingZero(offerIndex) + '.png',
+        avatar: 'img/avatars/user' + window.utils.addLeadingZero(offerIndex) + '.png',
       },
       offer: {
-        title: window.utilites.extractRandomElement(OFFER.TITLES),
-        price: window.utilites.getRandomInteger(OFFER.PRICE_MIN, OFFER.PRICE_MAX),
-        type: window.utilites.getRandomElement(OFFER.TYPES),
-        rooms: window.utilites.getRandomInteger(OFFER.ROOMS_MIN, OFFER.ROOMS_MAX),
-        guests: window.utilites.getRandomInteger(OFFER.GUESTS_MIN, OFFER.GUESTS_MAX),
-        checkin: window.utilites.getRandomElement(OFFER.CHECKIN_TIMES),
-        checkout: window.utilites.getRandomElement(OFFER.CHECKOUT_TIMES),
-        features: window.utilites.getRandomElements(OFFER.FEATURES),
+        title: window.utils.extractRandomElement(OFFER.TITLES),
+        price: window.utils.getRandomInteger(OFFER.PRICE_MIN, OFFER.PRICE_MAX),
+        type: window.utils.getRandomElement(OFFER.TYPES),
+        rooms: window.utils.getRandomInteger(OFFER.ROOMS_MIN, OFFER.ROOMS_MAX),
+        guests: window.utils.getRandomInteger(OFFER.GUESTS_MIN, OFFER.GUESTS_MAX),
+        checkin: window.utils.getRandomElement(OFFER.CHECKIN_TIMES),
+        checkout: window.utils.getRandomElement(OFFER.CHECKOUT_TIMES),
+        features: window.utils.getRandomElements(OFFER.FEATURES),
         description: '',
         photos: [],
       },
       location: {
-        x: window.utilites.getRandomInteger(300, 900),
-        y: window.utilites.getRandomInteger(100, 500),
+        x: window.utils.getRandomInteger(300, 900),
+        y: window.utils.getRandomInteger(100, 500),
       },
     };
     result.offer.address = result.location.x + ', ' + result.location.y;

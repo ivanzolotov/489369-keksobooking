@@ -6,8 +6,12 @@
   var noticeFormDomElement = document.querySelector('.notice__form');
   var timeinSelectDomElement = noticeFormDomElement.querySelector('select[name=timein]');
   var timeoutSelectDomElement = noticeFormDomElement.querySelector('select[name=timeout]');
-  timeinSelectDomElement.addEventListener('change', syncTimeInAndTimeOut);
-  timeoutSelectDomElement.addEventListener('change', syncTimeInAndTimeOut);
+  timeinSelectDomElement.addEventListener('change', function (evt) {
+    window.utilites.cloneElementValue(evt.target, timeoutSelectDomElement);
+  });
+  timeoutSelectDomElement.addEventListener('change', function (evt) {
+    window.utilites.cloneElementValue(evt.target, timeinSelectDomElement);
+  });
 
   // Устанавливаем минимальную цену за ночь в соответствии с типом жилья
   var typeSelectDomElement = noticeFormDomElement.querySelector('select[name=type]');
@@ -21,11 +25,6 @@
 
   // Навешиваем на все элементы формы обработчик-валидатор
   appendUniversalValidator();
-
-  function syncTimeInAndTimeOut(evt) {
-    timeinSelectDomElement.value = evt.target.value;
-    timeoutSelectDomElement.value = evt.target.value;
-  }
 
   function setMinimumPrice() {
     var priceInputDomElement = noticeFormDomElement.querySelector('input[name=price]');
@@ -61,7 +60,6 @@
   }
 
   window.form = {
-    syncTimeInAndTimeOut: syncTimeInAndTimeOut, // Не используется снаружи
     setMinimumPrice: setMinimumPrice, // Не используется снаружи
     setCapacity: setCapacity, // Не используется снаружи
     appendUniversalValidator: appendUniversalValidator, // Не используется снаружи

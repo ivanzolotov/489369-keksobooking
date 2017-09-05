@@ -56,6 +56,10 @@
     destination.appendChild(fragment);
   }
 
+  function cloneElementValue(source, target) {
+    target.value = source.value;
+  }
+
   function isEnterPressed(evt) {
     return evt.keyCode === ENTER_KEYCODE;
   }
@@ -76,6 +80,7 @@
     getRandomElement: getRandomElement,
     getRandomElements: getRandomElements,
     insertElementsToDom: insertElementsToDom,
+    cloneElementValue: cloneElementValue,
     isEnterPressed: isEnterPressed,
     isEscPressed: isEscPressed,
     translate: translate,

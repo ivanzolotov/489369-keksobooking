@@ -8,8 +8,6 @@
 
   var activePin;
 
-  drawAllPinElements();
-
   function makePinElement(index) {
     var image = document.createElement('img');
     image.classList.add('rounded');
@@ -57,9 +55,7 @@
   }
 
   window.mapPins = {
-    makePinElement: makePinElement, // Не используется снаружи (но, возможно, будет)
-    makeAllPinElements: makeAllPinElements, // Не используется снаружи (но, возможно, будет)
-    drawAllPinElements: drawAllPinElements, // Не используется снаружи (но, возможно, будет)
+    drawAllPinElements: drawAllPinElements,
     setActivePin: setActivePin,
     getActivePin: getActivePin,
     getActivePinIndex: getActivePinIndex,

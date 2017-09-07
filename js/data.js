@@ -2,7 +2,6 @@
 
 (function () {
 
-  var INITIAL_OFFERS_QUANTITY = 8;
   var OFFER = {
     TITLES: ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'],
     PRICE_MIN: 1000,
@@ -19,14 +18,6 @@
 
   var offers = [];
   var nextOfferIndex = 1;
-
-  generateInitialOffers(INITIAL_OFFERS_QUANTITY);
-
-  // [?] Может быть имеет смысл сделать ещё один модуль типа
-  //     index.js, подключить его самым последним и унести
-  //     в него то, что *делают* модули, в данном случае -
-  //     var INITIAL_OFFERS_QUANTITY = 8;
-  //     generateInitialOffers(INITIAL_OFFERS_QUANTITY);
 
   function getOffers() {
     return offers;
@@ -71,9 +62,7 @@
 
   window.data = {
     getOffers: getOffers,
-    addOffer: addOffer, // Не используется снаружи (но, возможно, будет)
-    createOffer: createOffer, // Не используется снаружи (но, возможно, будет)
-    generateInitialOffers: generateInitialOffers, // Не используется снаружи (но, возможно, будет)
+    generateInitialOffers: generateInitialOffers,
   };
 
 })();

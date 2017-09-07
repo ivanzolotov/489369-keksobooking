@@ -6,8 +6,10 @@
   var dialogCloseDomElement = offerDialogDomElement.querySelector('.dialog__close');
   var tokyoPinMapDomElement = document.querySelector('.tokyo__pin-map');
 
-  tokyoPinMapDomElement.addEventListener('click', tokyoPinMapDomElementClickHandler);
-  tokyoPinMapDomElement.addEventListener('keydown', tokyoPinMapDomElementKeydownHandler);
+  function makeDialogTogglable() {
+    tokyoPinMapDomElement.addEventListener('click', tokyoPinMapDomElementClickHandler);
+    tokyoPinMapDomElement.addEventListener('keydown', tokyoPinMapDomElementKeydownHandler);
+  }
 
   function tokyoPinMapDomElementClickHandler(evt) {
     var target = evt.target;
@@ -105,23 +107,8 @@
     offerDialogElement.querySelector('.dialog__title > img').src = window.data.getOffers()[index].author.avatar;
   }
 
-  // [?] А что делать с функцими, которые точно никогда не будут использоваться снаружи?
-  //     Всё равно экспортировать их наружу из тех соображений, что их будет удобнее тестирвоать?
-
   window.mapDialog = {
-    tokyoPinMapDomElementClickHandler: tokyoPinMapDomElementClickHandler, // Не используется снаружи и точно не будет
-    tokyoPinMapDomElementKeydownHandler: tokyoPinMapDomElementKeydownHandler, // Не используется снаружи и точно не будет
-    dialogCloseDomElementKeydownHandler: dialogCloseDomElementKeydownHandler, // Не используется снаружи и точно не будет
-    bodyKeydownHandler: bodyKeydownHandler, // Не используется снаружи и точно не будет
-    isDialogOpened: isDialogOpened, // Не используется снаружи (но, возможно, будет)
-    openDialog: openDialog, // Не используется снаружи (но, возможно, будет)
-    closeDialog: closeDialog, // Не используется снаружи (но, возможно, будет)
-
-    makeLodgeFeaturesSpans: makeLodgeFeaturesSpans, // Не используется снаружи и точно не будет
-    fillDialogPanelElement: fillDialogPanelElement, // Не используется снаружи и точно не будет
-    makeDialogPanelElement: makeDialogPanelElement, // Не используется снаружи и точно не будет
-    drawDialogPanelElement: drawDialogPanelElement, // Не используется снаружи (но, возможно, будет)
-    drawDialogTitleElement: drawDialogTitleElement, // Не используется снаружи (но, возможно, будет)
+    makeDialogTogglable: makeDialogTogglable,
   };
 
 })();

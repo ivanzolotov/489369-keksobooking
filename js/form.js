@@ -59,10 +59,16 @@
     }
   }
 
+  function setAddress(value) {
+    var addressInputDomElement = noticeFormDomElement.querySelector('input[name=address]');
+    addressInputDomElement.value = value;
+  }
+
   window.form = {
     setMinimumPrice: setMinimumPrice, // Не используется снаружи
     setCapacity: setCapacity, // Не используется снаружи
     appendUniversalValidator: appendUniversalValidator, // Не используется снаружи
+    setAddress: setAddress,
   };
 
 })();

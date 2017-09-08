@@ -2,29 +2,38 @@
 
 (function () {
 
-  // Синхронизируем время выезда и времени заезда
   var noticeFormDomElement = document.querySelector('.notice__form');
-  var timeinSelectDomElement = noticeFormDomElement.querySelector('select[name=timein]');
-  var timeoutSelectDomElement = noticeFormDomElement.querySelector('select[name=timeout]');
-  timeinSelectDomElement.addEventListener('change', function (evt) {
-    window.utilites.cloneElementValue(evt.target, timeoutSelectDomElement);
-  });
-  timeoutSelectDomElement.addEventListener('change', function (evt) {
-    window.utilites.cloneElementValue(evt.target, timeinSelectDomElement);
-  });
-
-  // Устанавливаем минимальную цену за ночь в соответствии с типом жилья
   var typeSelectDomElement = noticeFormDomElement.querySelector('select[name=type]');
-  typeSelectDomElement.addEventListener('change', setMinimumPrice);
-  setMinimumPrice();
-
-  // Устанавливаем количество мест в соответствии с количеством комнат
   var roomsSelectDomElement = noticeFormDomElement.querySelector('select[name=rooms]');
-  roomsSelectDomElement.addEventListener('change', setCapacity);
-  setCapacity();
 
-  // Навешиваем на все элементы формы обработчик-валидатор
-  appendUniversalValidator();
+  function syncTimeinAndTimeout() {
+    var timeinSelectDomElement = noticeFormDomElement.querySelector('select[name=timein]');
+    var timeoutSelectDomElement = noticeFormDomElement.querySelector('select[name=timeout]');
+    timeinSelectDomElement.addEventListener('change', function (evt) {
+      window.utils.cloneElementValue(evt.target, timeoutSelectDomElement);
+    });
+    timeoutSelectDomElement.addEventListener('change', function (evt) {
+      window.utils.cloneElementValue(evt.target, timeinSelectDomElement);
+    });
+  }
+
+  function makeMinimumPriceReactive() {
+    typeSelectDomElement.addEventListener('change', setMinimumPrice);
+    setMinimumPrice();
+  }
+
+  function makeCapacityReactive() {
+    roomsSelectDomElement.addEventListener('change', setCapacity);
+    setCapacity();
+  }
+
+  function makeFormValidatable() {
+    for (var i = 0; i < noticeFormDomElement.elements.length; i++) {
+      noticeFormDomElement.elements[i].addEventListener('invalid', function (evt) {
+        evt.target.style.outline = '2px solid red';
+      });
+    }
+  }
 
   function setMinimumPrice() {
     var priceInputDomElement = noticeFormDomElement.querySelector('input[name=price]');
@@ -51,18 +60,17 @@
     }
   }
 
-  function appendUniversalValidator() {
-    for (var i = 0; i < noticeFormDomElement.elements.length; i++) {
-      noticeFormDomElement.elements[i].addEventListener('invalid', function (evt) {
-        evt.target.style.outline = '2px solid red';
-      });
-    }
+  function setAddress(value) {
+    var addressInputDomElement = noticeFormDomElement.querySelector('input[name=address]');
+    addressInputDomElement.value = value;
   }
 
   window.form = {
-    setMinimumPrice: setMinimumPrice, // Не используется снаружи
-    setCapacity: setCapacity, // Не используется снаружи
-    appendUniversalValidator: appendUniversalValidator, // Не используется снаружи
+    syncTimeinAndTimeout: syncTimeinAndTimeout,
+    makeMinimumPriceReactive: makeMinimumPriceReactive,
+    makeCapacityReactive: makeCapacityReactive,
+    makeFormValidatable: makeFormValidatable,
+    setAddress: setAddress,
   };
 
 })();

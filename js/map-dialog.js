@@ -6,8 +6,10 @@
   var dialogCloseDomElement = offerDialogDomElement.querySelector('.dialog__close');
   var tokyoPinMapDomElement = document.querySelector('.tokyo__pin-map');
 
-  tokyoPinMapDomElement.addEventListener('click', tokyoPinMapDomElementClickHandler);
-  tokyoPinMapDomElement.addEventListener('keydown', tokyoPinMapDomElementKeydownHandler);
+  function makeDialogTogglable() {
+    tokyoPinMapDomElement.addEventListener('click', tokyoPinMapDomElementClickHandler);
+    tokyoPinMapDomElement.addEventListener('keydown', tokyoPinMapDomElementKeydownHandler);
+  }
 
   function tokyoPinMapDomElementClickHandler(evt) {
     var target = evt.target;
@@ -23,7 +25,7 @@
   }
 
   function tokyoPinMapDomElementKeydownHandler(evt) {
-    if (window.utilites.isEnterPressed(evt)) {
+    if (window.utils.isEnterPressed(evt)) {
       window.mapPins.setActivePin(evt.target);
       drawDialogPanelElement(window.mapPins.getActivePinIndex());
       openDialog();
@@ -31,13 +33,13 @@
   }
 
   function dialogCloseDomElementKeydownHandler(evt) {
-    if (window.utilites.isEnterPressed(evt)) {
+    if (window.utils.isEnterPressed(evt)) {
       closeDialog();
     }
   }
 
   function bodyKeydownHandler(evt) {
-    if (window.utilites.isEscPressed(evt)) {
+    if (window.utils.isEscPressed(evt)) {
       evt.preventDefault();
       closeDialog();
     }
@@ -76,7 +78,7 @@
     newDialogPanelElement.querySelector('.lodge__title').textContent = window.data.getOffers()[index].offer.title;
     newDialogPanelElement.querySelector('.lodge__address').textContent = window.data.getOffers()[index].offer.address;
     newDialogPanelElement.querySelector('.lodge__price').innerHTML = window.data.getOffers()[index].offer.price + '&#x20bd;/ночь';
-    newDialogPanelElement.querySelector('.lodge__type').textContent = window.utilites.capitalize(window.utilites.translate(window.data.getOffers()[index].offer.type));
+    newDialogPanelElement.querySelector('.lodge__type').textContent = window.utils.capitalize(window.utils.translate(window.data.getOffers()[index].offer.type));
     newDialogPanelElement.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + window.data.getOffers()[index].offer.guests + ' гостей в ' + window.data.getOffers()[index].offer.rooms + ' комнатах';
     newDialogPanelElement.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + window.data.getOffers()[index].offer.checkin + ', выезд до ' + window.data.getOffers()[index].offer.checkout;
     newDialogPanelElement.querySelector('.lodge__features').innerHTML = makeLodgeFeaturesSpans(window.data.getOffers()[index].offer.features);
@@ -105,23 +107,8 @@
     offerDialogElement.querySelector('.dialog__title > img').src = window.data.getOffers()[index].author.avatar;
   }
 
-  // [?] А что делать с функцими, которые точно никогда не будут использоваться снаружи?
-  //     Всё равно экспортировать их наружу из тех соображений, что их будет удобнее тестирвоать?
-
   window.mapDialog = {
-    tokyoPinMapDomElementClickHandler: tokyoPinMapDomElementClickHandler, // Не используется снаружи и точно не будет
-    tokyoPinMapDomElementKeydownHandler: tokyoPinMapDomElementKeydownHandler, // Не используется снаружи и точно не будет
-    dialogCloseDomElementKeydownHandler: dialogCloseDomElementKeydownHandler, // Не используется снаружи и точно не будет
-    bodyKeydownHandler: bodyKeydownHandler, // Не используется снаружи и точно не будет
-    isDialogOpened: isDialogOpened, // Не используется снаружи (но, возможно, будет)
-    openDialog: openDialog, // Не используется снаружи (но, возможно, будет)
-    closeDialog: closeDialog, // Не используется снаружи (но, возможно, будет)
-
-    makeLodgeFeaturesSpans: makeLodgeFeaturesSpans, // Не используется снаружи и точно не будет
-    fillDialogPanelElement: fillDialogPanelElement, // Не используется снаружи и точно не будет
-    makeDialogPanelElement: makeDialogPanelElement, // Не используется снаружи и точно не будет
-    drawDialogPanelElement: drawDialogPanelElement, // Не используется снаружи (но, возможно, будет)
-    drawDialogTitleElement: drawDialogTitleElement, // Не используется снаружи (но, возможно, будет)
+    makeDialogTogglable: makeDialogTogglable,
   };
 
 })();

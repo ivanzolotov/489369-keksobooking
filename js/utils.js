@@ -72,7 +72,7 @@
     return DICTIONARY[word];
   }
 
-  window.utilites = {
+  window.utils = {
     capitalize: capitalize,
     addLeadingZero: addLeadingZero,
     getRandomInteger: getRandomInteger,

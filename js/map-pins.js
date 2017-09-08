@@ -8,8 +8,6 @@
 
   var activePin;
 
-  drawAllPinElements();
-
   function makePinElement(index) {
     var image = document.createElement('img');
     image.classList.add('rounded');
@@ -34,7 +32,7 @@
   }
 
   function drawAllPinElements() {
-    window.utilites.insertElementsToDom(makeAllPinElements(), document.querySelector('.tokyo__pin-map'));
+    window.utils.insertElementsToDom(makeAllPinElements(), document.querySelector('.tokyo__pin-map'));
   }
 
   function setActivePin(pin) {
@@ -57,9 +55,7 @@
   }
 
   window.mapPins = {
-    makePinElement: makePinElement, // Не используется снаружи (но, возможно, будет)
-    makeAllPinElements: makeAllPinElements, // Не используется снаружи (но, возможно, будет)
-    drawAllPinElements: drawAllPinElements, // Не используется снаружи (но, возможно, будет)
+    drawAllPinElements: drawAllPinElements,
     setActivePin: setActivePin,
     getActivePin: getActivePin,
     getActivePinIndex: getActivePinIndex,

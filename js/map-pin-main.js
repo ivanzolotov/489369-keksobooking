@@ -42,6 +42,10 @@
     evt.preventDefault();
     document.removeEventListener('mousemove', mousemoveHandler);
     document.removeEventListener('mouseup', mouseupHandler);
+    displayAddress();
+  }
+
+  function displayAddress() {
     var x = pinMainDomElement.offsetLeft + PIN_MAIN_HALF_WIDTH;
     var y = pinMainDomElement.offsetTop + PIN_MAIN_HEIGHT;
     window.form.setAddress('x: ' + x + ', y:' + y);
@@ -49,6 +53,7 @@
 
   window.mapPinMain = {
     makeMainPinDraggable: makeMainPinDraggable,
+    displayAddress: displayAddress,
   };
 
 })();

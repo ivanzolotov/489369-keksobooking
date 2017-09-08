@@ -1,11 +1,11 @@
 'use strict';
 
 (function () {
-
   var INITIAL_OFFERS_QUANTITY = 8;
 
   window.data.generateInitialOffers(INITIAL_OFFERS_QUANTITY);
   window.mapPins.drawAllPinElements();
+  window.mapPinMain.displayAddress();
   window.mapPinMain.makeMainPinDraggable();
   window.mapDialog.makeDialogTogglable();
   window.form.syncTimeinAndTimeout();

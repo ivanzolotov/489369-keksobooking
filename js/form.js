@@ -3,17 +3,19 @@
 (function () {
 
   var noticeFormDomElement = document.querySelector('.notice__form');
+  var timeinSelectDomElement = noticeFormDomElement.querySelector('select[name=timein]');
+  var timeoutSelectDomElement = noticeFormDomElement.querySelector('select[name=timeout]');
   var typeSelectDomElement = noticeFormDomElement.querySelector('select[name=type]');
+  var priceInputDomElement = noticeFormDomElement.querySelector('input[name=price]');
   var roomsSelectDomElement = noticeFormDomElement.querySelector('select[name=rooms]');
 
-  function syncTimeinAndTimeout() {
-    var timeinSelectDomElement = noticeFormDomElement.querySelector('select[name=timein]');
-    var timeoutSelectDomElement = noticeFormDomElement.querySelector('select[name=timeout]');
-    timeinSelectDomElement.addEventListener('change', function (evt) {
-      window.utils.cloneElementValue(evt.target, timeoutSelectDomElement);
+  function makeTimesReactive() {
+    var TIMES = ['12:00', '13:00', '14:00'];
+    timeinSelectDomElement.addEventListener('change', function () {
+      window.synchronizeFields(timeinSelectDomElement, timeoutSelectDomElement, TIMES, TIMES);
     });
-    timeoutSelectDomElement.addEventListener('change', function (evt) {
-      window.utils.cloneElementValue(evt.target, timeinSelectDomElement);
+    timeoutSelectDomElement.addEventListener('change', function () {
+      window.synchronizeFields(timeoutSelectDomElement, timeinSelectDomElement, TIMES, TIMES);
     });
   }
 
@@ -36,14 +38,13 @@
   }
 
   function setMinimumPrice() {
-    var priceInputDomElement = noticeFormDomElement.querySelector('input[name=price]');
-    var price = {
-      bungalo: 0,
-      flat: 1000,
-      house: 5000,
-      palace: 10000,
-    };
-    priceInputDomElement.setAttribute('min', price[typeSelectDomElement.value]);
+    var PRICES_BY_TYPE = [
+      [0, 1000, 5000, 10000],
+      ['bungalo', 'flat', 'house', 'palace'],
+    ];
+    window.synchronizeFields(typeSelectDomElement, priceInputDomElement, PRICES_BY_TYPE[1], PRICES_BY_TYPE[0], function (element, value) {
+      element.min = value;
+    });
   }
 
   function setCapacity() {
@@ -66,7 +67,7 @@
   }
 
   window.form = {
-    syncTimeinAndTimeout: syncTimeinAndTimeout,
+    makeTimesReactive: makeTimesReactive,
     makeMinimumPriceReactive: makeMinimumPriceReactive,
     makeCapacityReactive: makeCapacityReactive,
     makeFormValidatable: makeFormValidatable,

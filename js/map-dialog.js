@@ -2,38 +2,6 @@
 
 (function () {
 
-  var offerDialogDomElement = document.getElementById('offer-dialog');
-  var dialogCloseDomElement = offerDialogDomElement.querySelector('.dialog__close');
-
-  function showCard(evt) {
-    var target = evt.target;
-    if (evt.type === 'click' && target.tagName === 'IMG') {
-      target = target.parentNode;
-    }
-    if (evt.type === 'keydown' && !window.utils.isEnterPressed(evt)) {
-      return;
-    }
-    window.mapPins.setActivePin(target);
-    drawDialogPanelElement(window.mapPins.getActivePinIndex());
-    if (offerDialogDomElement.classList.contains('hidden')) {
-      offerDialogDomElement.classList.remove('hidden');
-      dialogCloseDomElement.addEventListener('click', closeCard);
-      document.body.addEventListener('keydown', closeCard);
-    }
-  }
-
-  function closeCard(evt) {
-    if (evt.type === 'keydown' && evt.target == dialogCloseDomElement && window.utils.isEnterPressed(evt) ||
-        evt.type === 'keydown' && window.utils.isEscPressed(evt) ||
-        evt.type === 'click') {
-      evt.preventDefault();
-      offerDialogDomElement.classList.add('hidden');
-      window.mapPins.setActivePin();
-      dialogCloseDomElement.removeEventListener('click', closeCard);
-      document.body.removeEventListener('keydown', closeCard);
-    }
-  }
-
   function makeLodgeFeaturesSpans(features) {
     var result = '';
     for (var i = 0; i < features.length; i++) {
@@ -61,20 +29,15 @@
     return newDialogPanelElement;
   }
 
-  function drawDialogPanelElement(index) {
+  function drawCard(index) {
     index = index || 0;
     var offerDialogElement = document.getElementById('offer-dialog');
     var newDialogPanelElement = makeDialogPanelElement(index);
     var oldDialogPanelElement = offerDialogElement.querySelector('.dialog__panel');
     offerDialogElement.replaceChild(newDialogPanelElement, oldDialogPanelElement);
-    drawDialogTitleElement(index);
-  }
-
-  function drawDialogTitleElement(index) {
-    var offerDialogElement = document.getElementById('offer-dialog');
     offerDialogElement.querySelector('.dialog__title > img').src = window.data.getOffers()[index].author.avatar;
   }
 
-  window.showCard = showCard;
+  window.drawCard = drawCard;
 
 })();

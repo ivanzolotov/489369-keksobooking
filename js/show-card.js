@@ -23,7 +23,7 @@
   }
 
   function closeCard(evt) {
-    if (evt.type === 'keydown' && evt.target == dialogCloseDomElement && window.utils.isEnterPressed(evt) ||
+    if (evt.type === 'keydown' && evt.target === dialogCloseDomElement && window.utils.isEnterPressed(evt) ||
         evt.type === 'keydown' && window.utils.isEscPressed(evt) ||
         evt.type === 'click') {
       evt.preventDefault();

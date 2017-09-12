@@ -10,7 +10,7 @@
     if (evt.type === 'click' && target.tagName === 'IMG') {
       target = target.parentNode;
     }
-    if (evt.type === 'keydown' && !window.utils.isEnterPressed(evt)) {
+    if (window.utils.isNotEnterPressed(evt)) {
       return;
     }
     window.mapPins.setActivePin(target);
@@ -23,9 +23,10 @@
   }
 
   function closeCard(evt) {
-    if (evt.type === 'keydown' && evt.target === dialogClose && window.utils.isEnterPressed(evt) ||
-        evt.type === 'keydown' && window.utils.isEscPressed(evt) ||
-        evt.type === 'click') {
+    var isDialogClosePressed = window.utils.isEnterPressed(evt) && evt.target === dialogClose;
+    var isEscPressed = window.utils.isEscPressed(evt);
+    var isClickEvent = evt.type === 'click';
+    if (isDialogClosePressed || isEscPressed || isClickEvent) {
       evt.preventDefault();
       offerDialog.classList.add('hidden');
       window.mapPins.setActivePin();

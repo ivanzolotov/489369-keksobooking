@@ -2,12 +2,11 @@
 
 (function () {
 
-  var noticeForm = document.querySelector('.notice__form');
-  var timeinSelect = noticeForm.querySelector('select[name=timein]');
-  var timeoutSelect = noticeForm.querySelector('select[name=timeout]');
-  var typeSelect = noticeForm.querySelector('select[name=type]');
-  var priceInput = noticeForm.querySelector('input[name=price]');
-  var roomsSelect = noticeForm.querySelector('select[name=rooms]');
+  var timeinSelect = document.getElementById('timein');
+  var timeoutSelect = document.getElementById('timeout');
+  var typeSelect = document.getElementById('type');
+  var priceInput = document.getElementById('price');
+  var roomsSelect = document.getElementById('room_number');
 
   function makeTimesReactive() {
     var TIMES = ['12:00', '13:00', '14:00'];
@@ -30,6 +29,7 @@
   }
 
   function makeFormValidatable() {
+    var noticeForm = document.querySelector('.notice__form');
     for (var i = 0; i < noticeForm.elements.length; i++) {
       noticeForm.elements[i].addEventListener('invalid', function (evt) {
         evt.target.style.outline = '2px solid red';
@@ -49,7 +49,7 @@
 
   function setCapacity() {
     var capacityText = ['не для гостей', 'для 1 гостя', 'для 2 гостей', 'для 3 гостей'];
-    var capacitySelectDomElement = noticeForm.querySelector('select[name=capacity]');
+    var capacitySelectDomElement = document.getElementById('capacity');
     capacitySelectDomElement.innerHTML = '';
     if (roomsSelect.value === '100') {
       capacitySelectDomElement.appendChild(new Option(capacityText[0], 0));
@@ -62,7 +62,7 @@
   }
 
   function setAddress(value) {
-    var addressInputDomElement = noticeForm.querySelector('input[name=address]');
+    var addressInputDomElement = document.getElementById('address');
     addressInputDomElement.value = value;
   }
 

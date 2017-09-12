@@ -61,11 +61,15 @@
   }
 
   function isEnterPressed(evt) {
-    return evt.keyCode === ENTER_KEYCODE;
+    return evt.keyCode === ENTER_KEYCODE && evt.type === 'keydown';
+  }
+
+  function isNotEnterPressed(evt) {
+    return evt.keyCode !== ENTER_KEYCODE && evt.type === 'keydown';
   }
 
   function isEscPressed(evt) {
-    return evt.keyCode === ESC_KEYCODE;
+    return evt.keyCode === ESC_KEYCODE && evt.type === 'keydown';
   }
 
   function translate(word) {
@@ -82,6 +86,7 @@
     insertElementsToDom: insertElementsToDom,
     cloneElementValue: cloneElementValue,
     isEnterPressed: isEnterPressed,
+    isNotEnterPressed: isNotEnterPressed,
     isEscPressed: isEscPressed,
     translate: translate,
   };

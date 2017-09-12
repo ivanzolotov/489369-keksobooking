@@ -2,58 +2,59 @@
 
 (function () {
 
-  var noticeFormDomElement = document.querySelector('.notice__form');
-  var typeSelectDomElement = noticeFormDomElement.querySelector('select[name=type]');
-  var roomsSelectDomElement = noticeFormDomElement.querySelector('select[name=rooms]');
+  var timeinSelect = document.getElementById('timein');
+  var timeoutSelect = document.getElementById('timeout');
+  var typeSelect = document.getElementById('type');
+  var priceInput = document.getElementById('price');
+  var roomsSelect = document.getElementById('room_number');
 
-  function syncTimeinAndTimeout() {
-    var timeinSelectDomElement = noticeFormDomElement.querySelector('select[name=timein]');
-    var timeoutSelectDomElement = noticeFormDomElement.querySelector('select[name=timeout]');
-    timeinSelectDomElement.addEventListener('change', function (evt) {
-      window.utils.cloneElementValue(evt.target, timeoutSelectDomElement);
+  function makeTimesReactive() {
+    var TIMES = ['12:00', '13:00', '14:00'];
+    timeinSelect.addEventListener('change', function () {
+      window.synchronizeFields(timeinSelect, timeoutSelect, TIMES, TIMES);
     });
-    timeoutSelectDomElement.addEventListener('change', function (evt) {
-      window.utils.cloneElementValue(evt.target, timeinSelectDomElement);
+    timeoutSelect.addEventListener('change', function () {
+      window.synchronizeFields(timeoutSelect, timeinSelect, TIMES, TIMES);
     });
   }
 
   function makeMinimumPriceReactive() {
-    typeSelectDomElement.addEventListener('change', setMinimumPrice);
+    typeSelect.addEventListener('change', setMinimumPrice);
     setMinimumPrice();
   }
 
   function makeCapacityReactive() {
-    roomsSelectDomElement.addEventListener('change', setCapacity);
+    roomsSelect.addEventListener('change', setCapacity);
     setCapacity();
   }
 
   function makeFormValidatable() {
-    for (var i = 0; i < noticeFormDomElement.elements.length; i++) {
-      noticeFormDomElement.elements[i].addEventListener('invalid', function (evt) {
+    var noticeForm = document.querySelector('.notice__form');
+    for (var i = 0; i < noticeForm.elements.length; i++) {
+      noticeForm.elements[i].addEventListener('invalid', function (evt) {
         evt.target.style.outline = '2px solid red';
       });
     }
   }
 
   function setMinimumPrice() {
-    var priceInputDomElement = noticeFormDomElement.querySelector('input[name=price]');
-    var price = {
-      bungalo: 0,
-      flat: 1000,
-      house: 5000,
-      palace: 10000,
-    };
-    priceInputDomElement.setAttribute('min', price[typeSelectDomElement.value]);
+    var PRICES_BY_TYPE = [
+      [0, 1000, 5000, 10000],
+      ['bungalo', 'flat', 'house', 'palace'],
+    ];
+    window.synchronizeFields(typeSelect, priceInput, PRICES_BY_TYPE[1], PRICES_BY_TYPE[0], function (element, value) {
+      element.min = value;
+    });
   }
 
   function setCapacity() {
     var capacityText = ['не для гостей', 'для 1 гостя', 'для 2 гостей', 'для 3 гостей'];
-    var capacitySelectDomElement = noticeFormDomElement.querySelector('select[name=capacity]');
+    var capacitySelectDomElement = document.getElementById('capacity');
     capacitySelectDomElement.innerHTML = '';
-    if (roomsSelectDomElement.value === '100') {
+    if (roomsSelect.value === '100') {
       capacitySelectDomElement.appendChild(new Option(capacityText[0], 0));
     } else {
-      for (var i = roomsSelectDomElement.value; i > 0; i--) {
+      for (var i = roomsSelect.value; i > 0; i--) {
         var option = new Option(capacityText[i], i);
         capacitySelectDomElement.appendChild(option);
       }
@@ -61,12 +62,12 @@
   }
 
   function setAddress(value) {
-    var addressInputDomElement = noticeFormDomElement.querySelector('input[name=address]');
+    var addressInputDomElement = document.getElementById('address');
     addressInputDomElement.value = value;
   }
 
   window.form = {
-    syncTimeinAndTimeout: syncTimeinAndTimeout,
+    makeTimesReactive: makeTimesReactive,
     makeMinimumPriceReactive: makeMinimumPriceReactive,
     makeCapacityReactive: makeCapacityReactive,
     makeFormValidatable: makeFormValidatable,

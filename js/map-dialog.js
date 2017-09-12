@@ -2,70 +2,6 @@
 
 (function () {
 
-  var offerDialogDomElement = document.getElementById('offer-dialog');
-  var dialogCloseDomElement = offerDialogDomElement.querySelector('.dialog__close');
-  var tokyoPinMapDomElement = document.querySelector('.tokyo__pin-map');
-
-  function makeDialogTogglable() {
-    tokyoPinMapDomElement.addEventListener('click', tokyoPinMapDomElementClickHandler);
-    tokyoPinMapDomElement.addEventListener('keydown', tokyoPinMapDomElementKeydownHandler);
-  }
-
-  function tokyoPinMapDomElementClickHandler(evt) {
-    var target = evt.target;
-    while (target !== tokyoPinMapDomElement) {
-      if (target.tagName === 'DIV' && !target.classList.contains('pin__main')) {
-        window.mapPins.setActivePin(target);
-        drawDialogPanelElement(window.mapPins.getActivePinIndex());
-        openDialog();
-        return;
-      }
-      target = target.parentNode;
-    }
-  }
-
-  function tokyoPinMapDomElementKeydownHandler(evt) {
-    if (window.utils.isEnterPressed(evt)) {
-      window.mapPins.setActivePin(evt.target);
-      drawDialogPanelElement(window.mapPins.getActivePinIndex());
-      openDialog();
-    }
-  }
-
-  function dialogCloseDomElementKeydownHandler(evt) {
-    if (window.utils.isEnterPressed(evt)) {
-      closeDialog();
-    }
-  }
-
-  function bodyKeydownHandler(evt) {
-    if (window.utils.isEscPressed(evt)) {
-      evt.preventDefault();
-      closeDialog();
-    }
-  }
-
-  function isDialogOpened() {
-    return !offerDialogDomElement.classList.contains('hidden');
-  }
-
-  function openDialog() {
-    if (!isDialogOpened()) {
-      offerDialogDomElement.classList.remove('hidden');
-      dialogCloseDomElement.addEventListener('click', closeDialog);
-      dialogCloseDomElement.addEventListener('keydown', dialogCloseDomElementKeydownHandler);
-      document.body.addEventListener('keydown', bodyKeydownHandler);
-    }
-  }
-
-  function closeDialog() {
-    offerDialogDomElement.classList.add('hidden');
-    dialogCloseDomElement.removeEventListener('click', closeDialog);
-    dialogCloseDomElement.removeEventListener('keydown', dialogCloseDomElementKeydownHandler);
-    document.body.removeEventListener('keydown', bodyKeydownHandler);
-    window.mapPins.setActivePin();
-  }
-
   function makeLodgeFeaturesSpans(features) {
     var result = '';
     for (var i = 0; i < features.length; i++) {
@@ -93,22 +29,15 @@
     return newDialogPanelElement;
   }
 
-  function drawDialogPanelElement(index) {
+  function drawCard(index) {
     index = index || 0;
     var offerDialogElement = document.getElementById('offer-dialog');
     var newDialogPanelElement = makeDialogPanelElement(index);
     var oldDialogPanelElement = offerDialogElement.querySelector('.dialog__panel');
     offerDialogElement.replaceChild(newDialogPanelElement, oldDialogPanelElement);
-    drawDialogTitleElement(index);
-  }
-
-  function drawDialogTitleElement(index) {
-    var offerDialogElement = document.getElementById('offer-dialog');
     offerDialogElement.querySelector('.dialog__title > img').src = window.data.getOffers()[index].author.avatar;
   }
 
-  window.mapDialog = {
-    makeDialogTogglable: makeDialogTogglable,
-  };
+  window.drawCard = drawCard;
 
 })();

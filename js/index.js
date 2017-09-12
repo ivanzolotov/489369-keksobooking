@@ -10,9 +10,9 @@
   window.mapPinMain.makeMainPinDraggable();
 
   // Make show/close card work propetly
-  var tokyoPinMapDomElement = document.querySelector('.tokyo__pin-map');
-  tokyoPinMapDomElement.addEventListener('click', window.showCard);
-  tokyoPinMapDomElement.addEventListener('keydown', window.showCard);
+  var tokyoPinMap = document.querySelector('.tokyo__pin-map');
+  tokyoPinMap.addEventListener('click', window.showCard);
+  tokyoPinMap.addEventListener('keydown', window.showCard);
 
   window.form.makeTimesReactive();
   window.form.makeMinimumPriceReactive();

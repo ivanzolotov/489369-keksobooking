@@ -6,12 +6,12 @@
   var PIN_MAIN_HALF_WIDTH = Math.floor(PIN_MAIN_WIDTH / 2);
   var PIN_MAIN_HEIGHT = 94;
 
-  var pinMainDomElement = document.querySelector('.pin__main');
+  var pinMain = document.querySelector('.pin__main');
 
   var startCoordinates;
 
   function makeMainPinDraggable() {
-    pinMainDomElement.addEventListener('mousedown', mousedownHandler);
+    pinMain.addEventListener('mousedown', mousedownHandler);
   }
 
   function mousedownHandler(evt) {
@@ -34,8 +34,8 @@
       x: evt.clientX,
       y: evt.clientY
     };
-    pinMainDomElement.style.top = (pinMainDomElement.offsetTop - shift.y) + 'px';
-    pinMainDomElement.style.left = (pinMainDomElement.offsetLeft - shift.x) + 'px';
+    pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
+    pinMain.style.left = (pinMain.offsetLeft - shift.x) + 'px';
   }
 
   function mouseupHandler(evt) {
@@ -46,8 +46,8 @@
   }
 
   function displayAddress() {
-    var x = pinMainDomElement.offsetLeft + PIN_MAIN_HALF_WIDTH;
-    var y = pinMainDomElement.offsetTop + PIN_MAIN_HEIGHT;
+    var x = pinMain.offsetLeft + PIN_MAIN_HALF_WIDTH;
+    var y = pinMain.offsetTop + PIN_MAIN_HEIGHT;
     window.form.setAddress('x: ' + x + ', y:' + y);
   }
 

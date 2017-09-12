@@ -2,8 +2,8 @@
 
 (function () {
 
-  var offerDialogDomElement = document.getElementById('offer-dialog');
-  var dialogCloseDomElement = offerDialogDomElement.querySelector('.dialog__close');
+  var offerDialog = document.getElementById('offer-dialog');
+  var dialogClose = offerDialog.querySelector('.dialog__close');
 
   function showCard(evt) {
     var target = evt.target;
@@ -15,21 +15,21 @@
     }
     window.mapPins.setActivePin(target);
     window.drawCard(window.mapPins.getActivePinIndex());
-    if (offerDialogDomElement.classList.contains('hidden')) {
-      offerDialogDomElement.classList.remove('hidden');
-      dialogCloseDomElement.addEventListener('click', closeCard);
+    if (offerDialog.classList.contains('hidden')) {
+      offerDialog.classList.remove('hidden');
+      dialogClose.addEventListener('click', closeCard);
       document.body.addEventListener('keydown', closeCard);
     }
   }
 
   function closeCard(evt) {
-    if (evt.type === 'keydown' && evt.target === dialogCloseDomElement && window.utils.isEnterPressed(evt) ||
+    if (evt.type === 'keydown' && evt.target === dialogClose && window.utils.isEnterPressed(evt) ||
         evt.type === 'keydown' && window.utils.isEscPressed(evt) ||
         evt.type === 'click') {
       evt.preventDefault();
-      offerDialogDomElement.classList.add('hidden');
+      offerDialog.classList.add('hidden');
       window.mapPins.setActivePin();
-      dialogCloseDomElement.removeEventListener('click', closeCard);
+      dialogClose.removeEventListener('click', closeCard);
       document.body.removeEventListener('keydown', closeCard);
     }
   }

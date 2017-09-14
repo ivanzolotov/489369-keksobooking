@@ -4,7 +4,7 @@
 
   var INITIAL_OFFERS_QUANTITY = 3;
 
-  window.data.getInitialOffers(INITIAL_OFFERS_QUANTITY, window.mapPins.drawAllPinElements);
+  window.data.getInitialOffers(INITIAL_OFFERS_QUANTITY, window.mapPins.renderPins);
   window.mapPinMain.displayAddress();
   window.mapPinMain.makeMainPinDraggable();
 

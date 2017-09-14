@@ -60,7 +60,7 @@
     for (var i = 0; i < filters.elements.length; i++) {
       var element = filters.elements[i];
       element.addEventListener('change', function () {
-        window.debounce(window.mapPins.drawAllPinElements);
+        window.debounce(window.mapPins.renderPins);
       });
     }
   }

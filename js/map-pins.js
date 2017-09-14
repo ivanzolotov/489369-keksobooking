@@ -31,7 +31,7 @@
     return result;
   }
 
-  function drawAllPinElements() {
+  function renderPins() {
     clearAllPinElements();
     window.utils.insertElementsToDom(makeAllPinElements(), document.querySelector('.tokyo__pin-map'));
   }
@@ -64,7 +64,7 @@
   }
 
   window.mapPins = {
-    drawAllPinElements: drawAllPinElements,
+    renderPins: renderPins,
     clearAllPinElements: clearAllPinElements,
     setActivePin: setActivePin,
     getActivePin: getActivePin,

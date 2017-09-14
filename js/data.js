@@ -60,9 +60,26 @@
     }
   }
 
+  function getInitialOffers(quantity, cb) {
+    var successHandler = function (data) {
+      data = data.filter(function (offer) {
+        return offer.author.avatar !== 'img/avatars/default.png';
+      });
+      for (var i = 0; i < quantity; i++) {
+        addOffer(data[i]);
+      }
+      cb();
+    };
+    var errorHandler = function (message) {
+      window.flash(message);
+    };
+    window.backend.load(successHandler, errorHandler);
+  }
+
   window.data = {
     getOffers: getOffers,
     generateInitialOffers: generateInitialOffers,
+    getInitialOffers: getInitialOffers,
   };
 
 })();

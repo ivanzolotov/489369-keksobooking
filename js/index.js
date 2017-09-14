@@ -4,8 +4,7 @@
 
   var INITIAL_OFFERS_QUANTITY = 8;
 
-  window.data.generateInitialOffers(INITIAL_OFFERS_QUANTITY);
-  window.mapPins.drawAllPinElements();
+  window.data.getInitialOffers(INITIAL_OFFERS_QUANTITY, window.mapPins.drawAllPinElements);
   window.mapPinMain.displayAddress();
   window.mapPinMain.makeMainPinDraggable();
 
@@ -18,5 +17,6 @@
   window.form.makeMinimumPriceReactive();
   window.form.makeCapacityReactive();
   window.form.makeFormValidatable();
+  window.form.uploadForm();
 
 })();

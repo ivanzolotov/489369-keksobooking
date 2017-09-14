@@ -2,11 +2,42 @@
 
 (function () {
 
-  var timeinSelect = document.getElementById('timein');
-  var timeoutSelect = document.getElementById('timeout');
-  var typeSelect = document.getElementById('type');
-  var priceInput = document.getElementById('price');
-  var roomsSelect = document.getElementById('room_number');
+  var form = document.querySelector('.notice__form');
+  var timeinSelect = form.querySelector('.timein');
+  var timeoutSelect = form.querySelector('.timeout');
+  var typeSelect = form.querySelector('.type');
+  var priceInput = form.querySelector('.price');
+  var roomsSelect = form.querySelector('.room_number');
+
+  function uploadForm() {
+    var successHandler = function () {
+      window.form.resetForm();
+    };
+    var errorHandler = function (message) {
+      window.flash(message);
+    };
+    form.addEventListener('submit', function (evt) {
+      evt.preventDefault();
+      window.backend.save(new FormData(form), successHandler, errorHandler);
+    });
+  }
+
+  function resetForm() {
+    for (var i = 0; i < form.elements.length; i++) {
+      var element = form.elements[i];
+      if (element.tagName === 'INPUT' && element.type === 'checkbox') {
+        element.checked = false;
+      } else if (element.tagName === 'INPUT') {
+        element.value = '';
+      }
+    }
+    typeSelect.value = 'flat';
+    timeinSelect.value = '12:00';
+    timeoutSelect.value = '12:00';
+    roomsSelect.value = 1;
+    setMinimumPrice();
+    setCapacity();
+  }
 
   function makeTimesReactive() {
     var TIMES = ['12:00', '13:00', '14:00'];
@@ -29,9 +60,8 @@
   }
 
   function makeFormValidatable() {
-    var noticeForm = document.querySelector('.notice__form');
-    for (var i = 0; i < noticeForm.elements.length; i++) {
-      noticeForm.elements[i].addEventListener('invalid', function (evt) {
+    for (var i = 0; i < form.elements.length; i++) {
+      form.elements[i].addEventListener('invalid', function (evt) {
         evt.target.style.outline = '2px solid red';
       });
     }
@@ -67,6 +97,8 @@
   }
 
   window.form = {
+    uploadForm: uploadForm,
+    resetForm: resetForm,
     makeTimesReactive: makeTimesReactive,
     makeMinimumPriceReactive: makeMinimumPriceReactive,
     makeCapacityReactive: makeCapacityReactive,

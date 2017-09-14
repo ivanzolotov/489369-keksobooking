@@ -4,7 +4,9 @@
 
   var INITIAL_OFFERS_QUANTITY = 3;
 
-  window.data.getInitialOffers(INITIAL_OFFERS_QUANTITY, window.mapPins.renderPins);
+  window.data.setLimit(INITIAL_OFFERS_QUANTITY);
+  window.data.getInitialOffers(window.mapPins.renderPins);
+
   window.mapPinMain.displayAddress();
   window.mapPinMain.makeMainPinDraggable();
 

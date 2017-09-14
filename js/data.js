@@ -17,10 +17,15 @@
   };
 
   var offers = [];
+  var limit = Infinity;
   var nextOfferIndex = 1;
 
+  function setLimit(number) {
+    limit = number;
+  }
+
   function getOffers() {
-    return offers.filter(window.filter.filterOffers);
+    return offers.filter(window.filter.filterOffers).slice(0, limit);
   }
 
   function addOffer(offer) {
@@ -60,12 +65,12 @@
     }
   }
 
-  function getInitialOffers(quantity, cb) {
+  function getInitialOffers(cb) {
     var successHandler = function (data) {
       data = data.filter(function (offer) {
         return offer.author.avatar !== 'img/avatars/default.png';
       });
-      for (var i = 0; i < quantity; i++) {
+      for (var i = 0; i < data.length; i++) {
         addOffer(data[i]);
       }
       cb();
@@ -80,6 +85,7 @@
     getOffers: getOffers,
     generateInitialOffers: generateInitialOffers,
     getInitialOffers: getInitialOffers,
+    setLimit: setLimit,
   };
 
 })();

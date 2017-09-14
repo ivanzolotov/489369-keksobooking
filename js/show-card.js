@@ -10,6 +10,9 @@
     if (evt.type === 'click' && target.tagName === 'IMG') {
       target = target.parentNode;
     }
+    if (target.classList.contains('pin__main')) {
+      return;
+    }
     if (!window.utils.isEnterPressed(evt) && evt.type === 'keydown') {
       return;
     }

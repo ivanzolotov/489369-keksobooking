@@ -9,6 +9,19 @@
   var priceInput = form.querySelector('.price');
   var roomsSelect = form.querySelector('.room_number');
 
+  function uploadForm() {
+    var successHandler = function () {
+      window.form.resetForm();
+    };
+    var errorHandler = function (message) {
+      window.flash(message);
+    };
+    form.addEventListener('submit', function (evt) {
+      evt.preventDefault();
+      window.backend.save(new FormData(form), successHandler, errorHandler);
+    });
+  }
+
   function resetForm() {
     for (var i = 0; i < form.elements.length; i++) {
       var element = form.elements[i];
@@ -84,6 +97,7 @@
   }
 
   window.form = {
+    uploadForm: uploadForm,
     resetForm: resetForm,
     makeTimesReactive: makeTimesReactive,
     makeMinimumPriceReactive: makeMinimumPriceReactive,

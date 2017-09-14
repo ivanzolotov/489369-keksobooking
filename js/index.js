@@ -18,5 +18,6 @@
   window.form.makeMinimumPriceReactive();
   window.form.makeCapacityReactive();
   window.form.makeFormValidatable();
+  window.form.uploadForm();
 
 })();

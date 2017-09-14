@@ -665,3 +665,14 @@ select option:hover {
 .rounded {
     border-radius: 50%;
 }
+
+.alert {
+    position: absolute;
+    z-index: 9999;
+    width: 1200px;
+    height: 38px;
+    padding: 10px;
+    box-sizing: border-box;
+    background: #f66;
+    color: #fff;
+}

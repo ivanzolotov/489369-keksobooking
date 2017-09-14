@@ -2,11 +2,12 @@
 
 (function () {
 
-  var timeinSelect = document.getElementById('timein');
-  var timeoutSelect = document.getElementById('timeout');
-  var typeSelect = document.getElementById('type');
-  var priceInput = document.getElementById('price');
-  var roomsSelect = document.getElementById('room_number');
+  var form = document.querySelector('.notice__form');
+  var timeinSelect = form.querySelector('.timein');
+  var timeoutSelect = form.querySelector('.timeout');
+  var typeSelect = form.querySelector('.type');
+  var priceInput = form.querySelector('.price');
+  var roomsSelect = form.querySelector('.room_number');
 
   function makeTimesReactive() {
     var TIMES = ['12:00', '13:00', '14:00'];

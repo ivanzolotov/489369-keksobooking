@@ -2,7 +2,7 @@
 
 (function () {
 
-  var INITIAL_OFFERS_QUANTITY = 8;
+  var INITIAL_OFFERS_QUANTITY = 3;
 
   window.data.getInitialOffers(INITIAL_OFFERS_QUANTITY, window.mapPins.drawAllPinElements);
   window.mapPinMain.displayAddress();

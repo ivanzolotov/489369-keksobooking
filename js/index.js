@@ -6,7 +6,6 @@
 
   window.data.setLimit(INITIAL_OFFERS_QUANTITY);
   window.data.getInitialOffers(window.mapPins.renderPins);
-
   window.mapPinMain.displayAddress();
   window.mapPinMain.makeMainPinDraggable();
 

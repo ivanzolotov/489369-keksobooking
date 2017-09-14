@@ -2,55 +2,43 @@
 
 (function () {
 
+  var PRICE_LOW_MAX = 10000;
+  var PRICE_MIDDLE_MAX = 50000;
+
   var filters = document.querySelector('.tokyo__filters');
 
-  var typeFilter = function (it) {
+  function typeFilter(offer) {
     var value = filters.querySelector('#housing_type').value;
-    switch (value) {
-      case 'any':
-        return true;
-      default:
-        return it.offer.type === value;
-    }
-  };
+    return value === 'any' ? true : offer.offer.type === value;
+  }
 
-  var priceFilter = function (it) {
+  function priceFilter(offer) {
     var value = filters.querySelector('#housing_price').value;
     switch (value) {
-      case 'middle':
-        return it.offer.price >= 10000 && it.offer.price < 50000;
       case 'low':
-        return it.offer.price < 10000;
+        return offer.offer.price < PRICE_LOW_MAX;
+      case 'middle':
+        return offer.offer.price >= PRICE_LOW_MAX && offer.offer.price < PRICE_MIDDLE_MAX;
       case 'high':
-        return it.offer.price >= 50000;
+        return offer.offer.price >= PRICE_MIDDLE_MAX;
       default:
         return true;
     }
-  };
+  }
 
-  var roomFilter = function (it) {
+  function roomFilter(offer) {
     var value = filters.querySelector('#housing_room-number').value;
-    switch (value) {
-      case 'any':
-        return true;
-      default:
-        return it.offer.rooms === +value;
-    }
-  };
+    return value === 'any' ? true : offer.offer.rooms === +value;
+  }
 
-  var guestsFilter = function (it) {
+  function guestsFilter(offer) {
     var value = filters.querySelector('#housing_guests-number').value;
-    switch (value) {
-      case 'any':
-        return true;
-      default:
-        return it.offer.guests === +value;
-    }
-  };
+    return value === 'any' ? true : offer.offer.guests === +value;
+  }
 
-  var featureFilter = function (it) {
+  function featureFilter(offer) {
     var fieldset = filters.querySelector('#housing_features');
-    var offerFeatures = it.offer.features;
+    var offerFeatures = offer.offer.features;
     var checkedFeatures = [];
     for (var i = 0; i < fieldset.elements.length; i++) {
       var checkbox = fieldset.elements[i];
@@ -62,7 +50,7 @@
       return accumulator && offerFeatures.indexOf(feature) > -1;
     }, true);
     return allCheckedFeaturesAreInOffer;
-  };
+  }
 
   function filterOffers(offer) {
     return typeFilter(offer) && priceFilter(offer) && roomFilter(offer) && guestsFilter(offer) && featureFilter(offer);

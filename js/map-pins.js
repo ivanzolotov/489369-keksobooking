@@ -54,8 +54,17 @@
     return Array.prototype.indexOf.call(pins, activePin);
   }
 
+  function clearAllPinElements() {
+    var pins = document.querySelectorAll('.pin:not(.pin__main)');
+    for (var i = 0; i < pins.length; i++) {
+      var pin = pins[i];
+      pin.parentElement.removeChild(pin);
+    }
+  }
+
   window.mapPins = {
     drawAllPinElements: drawAllPinElements,
+    clearAllPinElements: clearAllPinElements,
     setActivePin: setActivePin,
     getActivePin: getActivePin,
     getActivePinIndex: getActivePinIndex,

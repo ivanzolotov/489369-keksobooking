@@ -7,8 +7,8 @@
   }
 
   function synchronizeFields(source, target, sourceData, targetData, cb) {
-    var i = sourceData.indexOf(source.value);
-    var value = targetData[i];
+    var index = sourceData.indexOf(source.value);
+    var value = targetData[index];
     cb = cb || syncValues;
     cb(target, value);
   }

@@ -64,8 +64,22 @@
     return allCheckedFeaturesAreInOffer;
   };
 
-  window.filter = function (it) {
-    return typeFilter(it) && priceFilter(it) && roomFilter(it) && guestsFilter(it) && featureFilter(it);
+  function filterOffers(offer) {
+    return typeFilter(offer) && priceFilter(offer) && roomFilter(offer) && guestsFilter(offer) && featureFilter(offer);
+  }
+
+  function makeFiltersWork() {
+    for (var i = 0; i < filters.elements.length; i++) {
+      var element = filters.elements[i];
+      element.addEventListener('change', function () {
+        window.debounce(window.mapPins.drawAllPinElements);
+      });
+    }
+  }
+
+  window.filter = {
+    filterOffers: filterOffers,
+    makeFiltersWork: makeFiltersWork,
   };
 
 })();

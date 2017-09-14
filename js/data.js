@@ -20,7 +20,7 @@
   var nextOfferIndex = 1;
 
   function getOffers() {
-    return offers.filter(window.filter);
+    return offers.filter(window.filter.filterOffers);
   }
 
   function addOffer(offer) {

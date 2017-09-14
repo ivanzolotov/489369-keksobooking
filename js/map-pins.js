@@ -32,6 +32,7 @@
   }
 
   function drawAllPinElements() {
+    clearAllPinElements();
     window.utils.insertElementsToDom(makeAllPinElements(), document.querySelector('.tokyo__pin-map'));
   }
 

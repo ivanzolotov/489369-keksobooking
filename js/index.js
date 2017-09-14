@@ -18,14 +18,5 @@
   window.form.makeCapacityReactive();
   window.form.makeFormValidatable();
   window.form.uploadForm();
-
-  var filters = document.querySelector('.tokyo__filters');
-  for (var i = 0; i < filters.elements.length; i++) {
-    var element = filters.elements[i];
-    element.addEventListener('change', function () {
-      window.mapPins.clearAllPinElements();
-      window.mapPins.drawAllPinElements();
-    });
-  }
-
+  window.filter.makeFiltersWork();
 })();

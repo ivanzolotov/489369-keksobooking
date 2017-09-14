@@ -9,6 +9,23 @@
   var priceInput = form.querySelector('.price');
   var roomsSelect = form.querySelector('.room_number');
 
+  function resetForm() {
+    for (var i = 0; i < form.elements.length; i++) {
+      var element = form.elements[i];
+      if (element.tagName === 'INPUT' && element.type === 'checkbox') {
+        element.checked = false;
+      } else if (element.tagName === 'INPUT') {
+        element.value = '';
+      }
+    }
+    typeSelect.value = 'flat';
+    timeinSelect.value = '12:00';
+    timeoutSelect.value = '12:00';
+    roomsSelect.value = 1;
+    setMinimumPrice();
+    setCapacity();
+  }
+
   function makeTimesReactive() {
     var TIMES = ['12:00', '13:00', '14:00'];
     timeinSelect.addEventListener('change', function () {
@@ -30,9 +47,8 @@
   }
 
   function makeFormValidatable() {
-    var noticeForm = document.querySelector('.notice__form');
-    for (var i = 0; i < noticeForm.elements.length; i++) {
-      noticeForm.elements[i].addEventListener('invalid', function (evt) {
+    for (var i = 0; i < form.elements.length; i++) {
+      form.elements[i].addEventListener('invalid', function (evt) {
         evt.target.style.outline = '2px solid red';
       });
     }
@@ -68,6 +84,7 @@
   }
 
   window.form = {
+    resetForm: resetForm,
     makeTimesReactive: makeTimesReactive,
     makeMinimumPriceReactive: makeMinimumPriceReactive,
     makeCapacityReactive: makeCapacityReactive,

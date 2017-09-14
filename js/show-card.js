@@ -10,7 +10,7 @@
     if (evt.type === 'click' && target.tagName === 'IMG') {
       target = target.parentNode;
     }
-    if (window.utils.isNotEnterPressed(evt)) {
+    if (!window.utils.isEnterPressed(evt) && evt.type === 'keydown') {
       return;
     }
     window.mapPins.setActivePin(target);

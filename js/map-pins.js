@@ -31,7 +31,8 @@
     return result;
   }
 
-  function drawAllPinElements() {
+  function renderPins() {
+    clearPins();
     window.utils.insertElementsToDom(makeAllPinElements(), document.querySelector('.tokyo__pin-map'));
   }
 
@@ -54,8 +55,16 @@
     return Array.prototype.indexOf.call(pins, activePin);
   }
 
+  function clearPins() {
+    var pins = document.querySelectorAll('.pin:not(.pin__main)');
+    for (var i = 0; i < pins.length; i++) {
+      var pin = pins[i];
+      pin.parentElement.removeChild(pin);
+    }
+  }
+
   window.mapPins = {
-    drawAllPinElements: drawAllPinElements,
+    renderPins: renderPins,
     setActivePin: setActivePin,
     getActivePin: getActivePin,
     getActivePinIndex: getActivePinIndex,

@@ -69,8 +69,8 @@
 
   function setMinimumPrice() {
     var PRICES_BY_TYPE = [
-      [0, 1000, 5000, 10000],
-      ['bungalo', 'flat', 'house', 'palace'],
+      [0, 1000, 10000],
+      ['bungalo', 'flat', 'house'],
     ];
     window.synchronizeFields(typeSelect, priceInput, PRICES_BY_TYPE[1], PRICES_BY_TYPE[0], function (element, value) {
       element.min = value;

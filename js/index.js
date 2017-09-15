@@ -2,9 +2,10 @@
 
 (function () {
 
-  var INITIAL_OFFERS_QUANTITY = 8;
+  var INITIAL_OFFERS_QUANTITY = 3;
 
-  window.data.getInitialOffers(INITIAL_OFFERS_QUANTITY, window.mapPins.drawAllPinElements);
+  window.data.setLimit(INITIAL_OFFERS_QUANTITY);
+  window.data.getInitialOffers(window.mapPins.renderPins);
   window.mapPinMain.displayAddress();
   window.mapPinMain.makeMainPinDraggable();
 
@@ -18,5 +19,5 @@
   window.form.makeCapacityReactive();
   window.form.makeFormValidatable();
   window.form.uploadForm();
-
+  window.filter.makeFiltersWork();
 })();

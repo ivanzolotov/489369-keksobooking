@@ -31,9 +31,9 @@
     return array[getRandomInteger(0, array.length - 1)];
   }
 
-  /** 
+  /**
    * Возвращает quantity либо случайное количество случайных элементов из array.
-   * 
+   *
    * @param {Array} array
    * @param {number} quantity
    * @return {Array}

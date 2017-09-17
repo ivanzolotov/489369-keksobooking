@@ -91,7 +91,7 @@
   function setCapacity() {
     var capacityText = ['не для гостей', 'для 1 гостя', 'для 2 гостей', 'для 3 гостей'];
     var capacitySelectDomElement = document.getElementById('capacity');
-    capacitySelectDomElement.innerHTML = '';
+    capacitySelectDomElement.textContent = '';
     if (roomsSelect.value === '100') {
       capacitySelectDomElement.appendChild(new Option(capacityText[0], 0));
     } else {

@@ -5,6 +5,10 @@
   var PIN_MAIN_WIDTH = 75;
   var PIN_MAIN_HALF_WIDTH = Math.floor(PIN_MAIN_WIDTH / 2);
   var PIN_MAIN_HEIGHT = 94;
+  var PIN_LEFT_MIN = 0;
+  var PIN_LEFT_MAX = 1200 - PIN_MAIN_WIDTH;
+  var PIN_TOP_MIN = 100;
+  var PIN_TOP_MAX = 650 - PIN_MAIN_HEIGHT;
 
   var pinMain = document.querySelector('.pin__main');
 
@@ -30,12 +34,16 @@
       x: startCoordinates.x - evt.clientX,
       y: startCoordinates.y - evt.clientY
     };
-    startCoordinates = {
-      x: evt.clientX,
-      y: evt.clientY
-    };
-    pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
-    pinMain.style.left = (pinMain.offsetLeft - shift.x) + 'px';
+    var pinLeft = pinMain.offsetLeft - shift.x;
+    var pinTop = pinMain.offsetTop - shift.y;
+    if (pinLeft >= PIN_LEFT_MIN && pinLeft <= PIN_LEFT_MAX && pinTop >= PIN_TOP_MIN && pinTop <= PIN_TOP_MAX) {
+      startCoordinates = {
+        x: evt.clientX,
+        y: evt.clientY
+      };
+      pinMain.style.left = pinLeft + 'px';
+      pinMain.style.top = pinTop + 'px';
+    }
   }
 
   function mouseupHandler(evt) {

@@ -57,10 +57,23 @@
     setCapacity();
   }
 
+  function markInvatid(evt) {
+    evt.target.style.outline = '2px solid red';
+  }
+
+  function markValid(evt) {
+    evt.target.style.outline = 'none';
+  }
+
   function makeFormValidatable() {
     for (var i = 0; i < form.elements.length; i++) {
-      form.elements[i].addEventListener('invalid', function (evt) {
-        evt.target.style.outline = '2px solid red';
+      form.elements[i].addEventListener('invalid', markInvatid);
+      form.elements[i].addEventListener('change', function (evt) {
+        if (evt.target.validity.valid) {
+          markValid(evt);
+        } else {
+          markInvatid(evt);
+        }
       });
     }
   }

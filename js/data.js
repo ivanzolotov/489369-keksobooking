@@ -66,7 +66,7 @@
   }
 
   function getInitialOffers(cb) {
-    var successHandler = function (data) {
+    window.backend.load(function (data) {
       data = data.filter(function (offer) {
         return offer.author.avatar !== 'img/avatars/default.png';
       });
@@ -74,11 +74,9 @@
         addOffer(data[i]);
       }
       cb();
-    };
-    var errorHandler = function (message) {
+    }, function (message) {
       window.flash(message);
-    };
-    window.backend.load(successHandler, errorHandler);
+    });
   }
 
   window.data = {

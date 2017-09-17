@@ -10,15 +10,13 @@
   var roomsSelect = form.querySelector('.room_number');
 
   function uploadForm() {
-    var successHandler = function () {
-      window.form.resetForm();
-    };
-    var errorHandler = function (message) {
-      window.flash(message);
-    };
     form.addEventListener('submit', function (evt) {
       evt.preventDefault();
-      window.backend.save(new FormData(form), successHandler, errorHandler);
+      window.backend.save(new FormData(form), function () {
+        window.form.resetForm();
+      }, function (message) {
+        window.flash(message);
+      });
     });
   }
 

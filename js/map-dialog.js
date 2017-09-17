@@ -13,7 +13,7 @@
   function fillDialogPanelElement(newDialogPanelElement, index) {
     newDialogPanelElement.querySelector('.lodge__title').textContent = window.data.getOffers()[index].offer.title;
     newDialogPanelElement.querySelector('.lodge__address').textContent = window.data.getOffers()[index].offer.address;
-    newDialogPanelElement.querySelector('.lodge__price').innerHTML = window.data.getOffers()[index].offer.price + '&#x20bd;/ночь';
+    newDialogPanelElement.querySelector('.lodge__price').textContent = window.data.getOffers()[index].offer.price + '₽/ночь';
     newDialogPanelElement.querySelector('.lodge__type').textContent = window.utils.capitalize(window.utils.translate(window.data.getOffers()[index].offer.type));
     newDialogPanelElement.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + window.data.getOffers()[index].offer.guests + ' гостей в ' + window.data.getOffers()[index].offer.rooms + ' комнатах';
     newDialogPanelElement.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + window.data.getOffers()[index].offer.checkin + ', выезд до ' + window.data.getOffers()[index].offer.checkout;

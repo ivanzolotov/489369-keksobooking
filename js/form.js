@@ -2,6 +2,9 @@
 
 (function () {
 
+  var VALID_OUTLINE_STYLE = 'none';
+  var INVALID_OUTLINE_STYLE = '2px solid red';
+
   var form = document.querySelector('.notice__form');
   var timeinSelect = form.querySelector('.timein');
   var timeoutSelect = form.querySelector('.timeout');
@@ -57,24 +60,18 @@
     setCapacity();
   }
 
-  function markInvatid(evt) {
-    evt.target.style.outline = '2px solid red';
-  }
-
-  function markValid(evt) {
-    evt.target.style.outline = 'none';
+  function validate(evt) {
+    if (evt.target.validity.valid) {
+      evt.target.style.outline = VALID_OUTLINE_STYLE;
+    } else {
+      evt.target.style.outline = INVALID_OUTLINE_STYLE;
+    }
   }
 
   function makeFormValidatable() {
     for (var i = 0; i < form.elements.length; i++) {
-      form.elements[i].addEventListener('invalid', markInvatid);
-      form.elements[i].addEventListener('change', function (evt) {
-        if (evt.target.validity.valid) {
-          markValid(evt);
-        } else {
-          markInvatid(evt);
-        }
-      });
+      form.elements[i].addEventListener('invalid', validate);
+      form.elements[i].addEventListener('change', validate);
     }
   }
 

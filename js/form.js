@@ -16,7 +16,7 @@
     form.addEventListener('submit', function (evt) {
       evt.preventDefault();
       window.backend.save(new FormData(form), function () {
-        window.form.resetForm();
+        resetForm();
       }, function (message) {
         window.flash(message);
       });
@@ -106,7 +106,6 @@
 
   window.form = {
     uploadForm: uploadForm,
-    resetForm: resetForm,
     makeTimesReactive: makeTimesReactive,
     makeMinimumPriceReactive: makeMinimumPriceReactive,
     makeCapacityReactive: makeCapacityReactive,
